@@ -1,37 +1,40 @@
+import 'dart:io';
 
-  Calculator calculator = Calculator();
-  try {
-    calculator.divideWithDelay(a.toDouble(), b.toDouble()).then((result) {
-      print('Result: $result');
-    });
-  } catch (e) {
-    if (e is IntegerDivisionByZeroException) {
-      print('Error: Division by zero is not allowed.');
-    } else {
-      print('Error: An unexpected error occurred: $e');
-    }
+class calculator {
+  double a;
+  double b;
+  calculator(this.a, this.b);
+  Future<double> add() {
+    return Future.delayed(Duration(seconds: 5), () => a + b);
+  }
+
+  Future<double> subtract() {
+    return Future.delayed(Duration(seconds: 5), () => a - b);
+  }
+
+  Future<double> product() {
+    return Future.delayed(Duration(seconds: 5), () => a * b);
+  }
+
+  Future<double> division() {
+    return Future.delayed(Duration(seconds: 5), () => a / b);
   }
 }
 
-class Calculator {
-  Calculator() {
-    // Default constructor
-  }
-
-  int add(int a, int b) {
-    return a + b;
-  }
-
-  int subtract(int a, int b) {
-    return a - b;
-  }
-
-  int multiply(int a, int b) {
-    return a * b;
-  }
-
-  Future<double> divideWithDelay(double a, double b) async {
-    await Future.delayed(Duration(seconds: 5)); // Introduce a 5-second delay
-    return a / b;
+void main() async {
+  double? a = double.parse(stdin.readLineSync()!);
+  double? b = double.parse(stdin.readLineSync()!);
+  calculator z = calculator(a, b);
+  try {
+    double Add = await z.add();
+    double Sub = await z.subtract();
+    double Pro = await z.product();
+    double Div = await z.division();
+    print("Sum = $Add");
+    print("Subtraction = $Sub");
+    print("Product = $Pro");
+    print("Division = $Div");
+  } catch (e) {
+    print(e);
   }
 }
